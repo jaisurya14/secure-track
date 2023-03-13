@@ -51,7 +51,7 @@ export default function AllStudentDisplay({getStudentId}) {
                                 </thead>
                                 <tbody>
                                 {students.map((student) => (
-                                    <tr className="border-b border-gray-200">
+                                    <tr className="border-b border-gray-200" key={student.id}>
                                         <td className="py-3 px-6 text-center whitespace-nowrap">
                                             <div className="flex items-center justify-center">
                                                 <span className="font-medium">{student.rollNumber}</span>
