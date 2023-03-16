@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import StudentServices from "@/services/student.services";
+import React, { useState, useEffect } from "react";
+import studentServices from "@/services/student.services";
 
-export default function StudentForm() {
+export default function StudentForm({ id, setStudentId }) {
     
     const [rollNumber, setRollNumber] = useState("");
     const [studentName, setStudentName] = useState("");
@@ -20,7 +20,7 @@ export default function StudentForm() {
         setError("");
         
         if (!rollNumber || !studentName || !phoneNumber || !gender || !departmentName || !address || !busRouteNumber || !pickupLocation || !aadharNumber) {
-            setError("All fields are required");
+            alert("All fields are required");
             return;
         }
         
@@ -36,11 +36,15 @@ export default function StudentForm() {
             aadharNumber
         }
         
-        console.log(newStudent)
-        
         try {
-            await StudentServices.addStudent(newStudent);
-            alert("Student Added Successfully");
+            if (id !== undefined && id !== "") {
+                await studentServices.updateStudent(id, newStudent);
+                setStudentId("");
+                alert("Student updated successfully");
+            } else {
+                await studentServices.addStudent(newStudent);
+                alert("Student added successfully");
+            }
         } catch (error) {
             console.log(error);
         }
@@ -56,6 +60,33 @@ export default function StudentForm() {
         setAadharNumber("");
         
     }
+    
+    const editHandler = async () => {
+        setError("");
+        try {
+            const studentDoc = await studentServices.getStudent(id);
+            if (studentDoc.exists()) {
+                const studentData = studentDoc.data();
+                setRollNumber(studentData.rollNumber);
+                setStudentName(studentData.studentName);
+                setPhoneNumber(studentData.phoneNumber);
+                setGender(studentData.gender);
+                setDepartmentName(studentData.departmentName);
+                setAddress(studentData.address);
+                setBusRouteNumber(studentData.busRouteNumber);
+                setPickupLocation(studentData.pickupLocation);
+                setAadharNumber(studentData.aadharNumber);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    useEffect(() => {
+        if (id !== undefined && id !== "") {
+            editHandler();
+        }
+    }, [id]);
     
     
     return (<>

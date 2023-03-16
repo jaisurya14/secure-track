@@ -17,7 +17,7 @@ class StudentDataService {
     updateStudent = async (id, updatedStudent) => {
         try {
             const studentDoc = doc(db, "students", id);
-            updateDoc(studentDoc, updatedStudent);
+            await updateDoc(studentDoc, updatedStudent);
         } catch (error) {
             console.log(error);
         }

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import StudentServices from '@/services/student.services';
 
@@ -6,17 +7,16 @@ export default function AllStudentDisplay({getStudentId}) {
     const [students, setStudents] = useState([]);
     
     useEffect(() => {
-        getStudents().then(r => console.log(r));
+        getStudents();
     }, [])
     
     const getStudents = async () => {
-        const data = await StudentServices.getAllStudents();
-        console.log(data.docs);
-        setStudents(data.docs.map(doc => ({...doc.data(), id: doc.id})) );
-    }
-    
-    const editStudent = async (id) => {
-        getStudentId(id);
+        try {
+            const data = await StudentServices.getAllStudents();
+            setStudents(data.docs.map(doc => ({...doc.data(), id: doc.id})) );
+        } catch (error) {
+            console.log(error);
+        }
     }
     
     const deleteStudent = async (id) => {
@@ -29,8 +29,10 @@ export default function AllStudentDisplay({getStudentId}) {
             <div className="overflow-x-auto">
                 <div className="min-w-screen flex items-center justify-center font-sans overflow-hidden">
                     <div className="w-full p-4">
-                        <div className="flex justify-end">
-                            <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={getStudents}>Refresh</button>
+                        <div className={"flex justify-end"}>
+                            <button className="items-end rounded-lg bg-gray-400 p-2" onClick={getStudents}>
+                                <Image src="/refresh.png" width={20} height={20}/>
+                            </button>
                         </div>
                         <div className="bg-white shadow-md rounded my-6">
                             <table className="table-auto">
@@ -98,17 +100,15 @@ export default function AllStudentDisplay({getStudentId}) {
                                             </div>
                                         </td>
                                         <td className={"py-3 px-6 text-center"}>
-                                            <div className="flex item-center justify-center space-x-20">
-                                                <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-                                                            onClick={(e) => editStudent(student.id)}
-                                                    >
-                                                        Edit
+                                            <div className="flex item-center justify-center">
+                                                <div className="mr-2">
+                                                    <button className="px-4 py-2" onClick={() => getStudentId(student.id)}>
+                                                        <Image src="/edit.png" width={20} height={20}/>
                                                     </button>
                                                 </div>
-                                                <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg" onClick={(e) => deleteStudent(student.id)}>
-                                                        Delete
+                                                <div className="mr-2">
+                                                    <button className="py-2 px-4" onClick={(e) => deleteStudent(student.id)}>
+                                                        <Image src="/trash.png" alt="Trash" width={20} height={20} />
                                                     </button>
                                                 </div>
                                             </div>

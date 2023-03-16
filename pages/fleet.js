@@ -1,3 +1,5 @@
+import {useState} from "react"
+
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -5,9 +7,16 @@ import FleetForm from "@/components/FleetForm"
 import AllFleetDisplay from "@/components/AllFleetDisplay"
 
 export default function Fleet() {
-    return (
-        <>
-            <Navbar />
+    
+    const [fleetID, setFleetID] = useState("");
+    
+    const getFleetIdHandler = (id) => {
+        setFleetID(id);
+    }
+    
+    
+    return (<>
+            <Navbar/>
             <div className="p-7 bg-[url('../public/background.jpg')] bg-cover bg-no-repeat h-full">
                 <div className="flex justify-between items-center">
                     <div className="flex flex-col text-left">
@@ -16,14 +25,13 @@ export default function Fleet() {
                 </div>
                 <div className="flex">
                     <div className="w-1/4">
-                        <FleetForm/>
+                        <FleetForm id={fleetID} setFleetID={setFleetID}/>
                     </div>
                     <div className="w-3/4">
-                        <AllFleetDisplay />
+                        <AllFleetDisplay getFleetId={getFleetIdHandler}/>
                     </div>
                 </div>
             </div>
-            <Footer />
-        </>
-    )
+            <Footer/>
+        </>)
 }

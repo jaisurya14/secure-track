@@ -1,3 +1,6 @@
+import { useState } from "react"
+
+
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -5,6 +8,13 @@ import CrewForm from "@/components/CrewForm"
 import AllCrewDisplay from "@/components/AllCrewDisplay"
 
 export default function Crew() {
+    
+    const [crewId, setCrewId] = useState("");
+    
+    const getCrewIdHandler = (id) => {
+        setCrewId(id);
+    }
+    
     return (
         <>
             <Navbar />
@@ -16,10 +26,10 @@ export default function Crew() {
                 </div>
                 <div className="flex">
                     <div className="w-1/4">
-                        <CrewForm/>
+                        <CrewForm id={crewId} setCrewId={setCrewId}/>
                     </div>
                     <div className="w-3/4">
-                        <AllCrewDisplay />
+                        <AllCrewDisplay getCrewId={getCrewIdHandler}/>
                     </div>
                 </div>
             </div>

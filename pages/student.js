@@ -11,7 +11,6 @@ export default function Student() {
     const [studentId, setStudentId] = useState("");
     
     const getStudentIdHandler = (id) => {
-        console.log("The ID : ", studentId)
         setStudentId(id);
     }
     

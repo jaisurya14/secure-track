@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -5,6 +7,14 @@ import RouteForm from "@/components/RouteForm"
 import AllRouteDisplay from "@/components/AllRouteDisplay"
 
 export default function Route() {
+    
+    const [routeId, setRouteId] = useState("");
+    
+    const getRouteIdHandler = (id) => {
+        console.log("The id is : ", id)
+        setRouteId(id);
+    }
+    
     return (
         <>
             <Navbar />
@@ -16,10 +26,10 @@ export default function Route() {
                 </div>
                 <div className="flex">
                     <div className="w-1/4">
-                        <RouteForm/>
+                        <RouteForm id={routeId} setRouteId={setRouteId}/>
                     </div>
                     <div className="w-3/4">
-                        <AllRouteDisplay />
+                        <AllRouteDisplay getRouteId={getRouteIdHandler}/>
                     </div>
                 </div>
             </div>
