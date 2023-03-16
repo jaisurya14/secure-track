@@ -24,7 +24,7 @@ export default function Navbar () {
                         <Link href={"/student"}>Student</Link>
                     </li>
                     <li>
-                        <Link href={"/"}>User</Link>
+                        <Link href={"/signin"}>User</Link>
                     </li>
                 </div>
             </div>

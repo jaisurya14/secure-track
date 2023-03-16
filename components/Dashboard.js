@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 export default function Dashboard () {
     return (<>
         <main>
-            <div className="h-full">
+            <div className="h-fit">
                 <OperatingBuses />
                 <Alerts />
                 <MapContainer />

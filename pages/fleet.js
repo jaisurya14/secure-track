@@ -17,7 +17,7 @@ export default function Fleet() {
     
     return (<>
             <Navbar/>
-            <div className="p-7 bg-[url('../public/background.jpg')] bg-cover bg-no-repeat h-full">
+            <div className="p-7 bg-[url('../public/background.jpg')] bg-cover bg-no-repeat h-screen">
                 <div className="flex justify-between items-center">
                     <div className="flex flex-col text-left">
                         <div className="text-2xl font-bold">Fleet</div>

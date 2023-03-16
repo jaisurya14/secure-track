@@ -12,11 +12,14 @@ export default function Home() {
                 <meta name="description" content="My page description" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className={"bg-[url('../public/background.jpg')] bg-cover bg-no-repeat"}>
+            <main className={"bg-[url('../public/background.jpg')] bg-cover bg-no-repeat h-full"}>
                 <Navbar />
                 <Dashboard />
-                <Footer />
+            <br />
+            <br />
+            <br />
             </main>
+            <Footer />
         </>
     )
 }
